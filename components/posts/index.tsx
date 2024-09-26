@@ -21,7 +21,7 @@ export type Post = {
 async function Posts({ posts }: { posts: Post[] }) {
   return posts.map((post) => (
     <div className="flex flex-col  border-[1px] border-slate-15 rounded-lg space-y-4">
-      <div className="flex justify-base space-x-4 border-b-[1px] border-slate-15">
+      <div className="flex justify-start space-x-4 border-b-[1px] border-slate-15">
         <div className="rounded-full" >
           <Link href={`/profile/${post.userId}`}>
             <Image
