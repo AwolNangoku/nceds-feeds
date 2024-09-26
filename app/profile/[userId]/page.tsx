@@ -7,7 +7,7 @@ export default async function Profile({ params }: { params: { userId: string } }
   const { userId } = params;
 
   return (
-    <div className="w-full h-full bg-white">
+    <div className="w-full h-screen bg-white">
       <div className="flex justify-between h-[56px]">
         <div className="flex justify-center bg-white w-full border-b-[1px] border-slate-15 py-[12px] px-[8px]">
           <div className="flex justify-start h-[12px]">

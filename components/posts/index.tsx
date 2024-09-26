@@ -6,6 +6,7 @@ import dislike from "@/public/dislike.png";
 import eye from "@/public/eye.png";
 import UserInfo from "../user-info";
 import Link from "next/link";
+import UserInfoSkeleton from "../user-info/user-info-skeleton";
 
 export type Post = {
   userId: string;
@@ -34,8 +35,9 @@ async function Posts({ posts }: { posts: Post[] }) {
           </Link>
         </div>
 
+        
         <div className="flex flex-col space-y-2">
-          <Suspense fallback={<div className="text-black">Loading user...</div>}>
+          <Suspense fallback={<UserInfoSkeleton />}>
             <UserInfo userId={post.userId} />
           </Suspense>
           <div className="text-black">{post.body}</div>
