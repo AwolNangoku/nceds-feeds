@@ -1,7 +1,6 @@
 import { Avatar, Posts, Spacer } from "@/components";
 import { Post } from "@/components/posts";
-import avatar from "@/public/avatar-feeds.png"
-import Image from "next/image";
+import PostsSkeleton from "@/components/posts/posts-skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -60,7 +59,9 @@ export default async function Feeds() {
           <h3 className="font-extrabold text-[24px] text-black">Suggested posts</h3>
 
           <div className="flex flex-col space-y-8">
-            <Posts posts={suggestedPosts as Post[]} />
+            <Suspense fallback={<PostsSkeleton posts={[0, 1]} />} >
+              <Posts posts={suggestedPosts as Post[]} />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -99,13 +100,14 @@ export default async function Feeds() {
       </div>
 
       <Spacer py="16px" />
+
       <div className="flex justify-center border-b-[1px] border-slate-15">
         <div className="flex flex-col space-y-8 justify-start w-[700px]">
           <h3 className="font-extrabold text-[24px] text-black">Recent</h3>
 
           <div className="grid grid-cols-1 gap-4 justify-center">
-            <Suspense fallback={<div>Loading recent user posts...</div>}>
-              <Posts posts={posts} />
+            <Suspense fallback={<PostsSkeleton posts={[0, 1, 2, 3, 4, 5, 6]} />} >
+              <Posts posts={posts as Post[]} />
             </Suspense>
           </div>
         </div>
