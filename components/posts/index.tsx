@@ -1,11 +1,9 @@
 import { Suspense } from "react";
 import Image from 'next/image'
-import avatar from "@/public/avatar-feeds.png";
 import like from "@/public/like.png";
 import dislike from "@/public/dislike.png";
 import eye from "@/public/eye.png";
 import UserInfo from "../user-info";
-import Link from "next/link";
 import UserInfoSkeleton from "../user-info/user-info-skeleton";
 import Spacer from "../spacer";
 import Avatar from "../avatar";

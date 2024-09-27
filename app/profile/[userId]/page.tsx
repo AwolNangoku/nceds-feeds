@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { Posts, ProfileCard, Spacer } from "@/components";
+import { Posts, ProfileCard } from "@/components";
 import ProfileCardSkeleton from "@/components/profile-card/profile-card-skeleton";
 import PostsSkeleton from "@/components/posts/posts-skeleton";
 
@@ -11,7 +11,7 @@ export default async function Profile({ params }: { params: { userId: string } }
   return (
     <div className="grid grid-cols-1 gap-4 bg-white">
       <div className="flex justify-between h-[56px]">
-        <div className="flex justify-center bg-white w-full border-b-[1px] border-slate-15 py-[12px] px-[8px]">
+        <div className="flex justify-between bg-white w-full border-b-[1px] border-slate-15 py-[12px] px-[8px]">
           <div className="flex justify-start h-[12px]">
             <Link href='/'>
               <div className="flex justify-center font-extrabold text-black w-[32px] h-[32px]">
@@ -19,7 +19,9 @@ export default async function Profile({ params }: { params: { userId: string } }
               </div>
             </Link>
           </div>
-          <h3 className="font-extrabold text-[18px] text-black">Profile</h3>
+          <div className="w-1/2">
+            <h3 className="font-extrabold text-[18px] text-black">Profile</h3>
+          </div>
         </div>
       </div>
 
