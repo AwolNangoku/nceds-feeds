@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ['Roboto Flex', 'sans-serif'],
+      },
+      backgroundImage: {
+        'avatar_feeds' : "url('../public/avatar-feeds.png')",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -18,6 +24,7 @@ const config: Config = {
         '#811AB8': '#811AB8',
         '#4426D9': '#4426D9',
         '#ECE9FB': '#ECE9FB',
+        '#E4E7E8': '#E4E7E8',
       },
       padding: {
         '8px': '8px',

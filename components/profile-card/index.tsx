@@ -1,5 +1,5 @@
 import Image from "next/image"
-import avatar from "@/public/avatar.png"
+import avatar from "@/public/avatar-feeds.png"
 import location from "@/public/location.png"
 import { Post } from "@/components/posts"
 

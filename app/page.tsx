@@ -1,7 +1,6 @@
-import { Posts } from "@/components";
+import { Avatar, Posts, Spacer } from "@/components";
 import { Post } from "@/components/posts";
-import avatar from "@/public/avatar.png"
-import Image from "next/image";
+import PostsSkeleton from "@/components/posts/posts-skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -55,43 +54,39 @@ export default async function Feeds() {
         <h3 className="font-extrabold text-[18px] text-black">Feed</h3>
       </div>
 
-      <div className="flex justify-center border-b-[1px] border-slate-15 py-[32px] px-[16px]">
+      <div className="flex justify-center py-[32px] px-[16px]">
         <div className="flex flex-col space-y-8 justify-start w-[700px]">
           <h3 className="font-extrabold text-[24px] text-black">Suggested posts</h3>
 
           <div className="flex flex-col space-y-8">
-            <Posts posts={suggestedPosts as Post[]} />
+            <Suspense fallback={<PostsSkeleton posts={[0, 1]} />} >
+              <Posts posts={suggestedPosts as Post[]} />
+            </Suspense>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center border-b-[1px] border-slate-15 py-[32px] px-[16px]">
-        <div className="flex flex-col space-y-8 justify-start w-[700px]">
-          <h3 className="font-extrabold text-[24px] text-black">Who to follow</h3>
+      <div className="flex justify-center">
+        <div className="flex flex-col justify-start">
+          <h3 className="font-extrabold text-[24px] leading-[24px] text-black">Who to follow</h3>
+          <Spacer py="16px" />
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 justify-center">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {toFollowUsers.map((toFollowUser: { userId: string, fullName: string, username: string}) => {
               return (
-                <div key={toFollowUser.userId} className="w-[326px] h-[72px] rounded-lg border-[1px] border-slate-15">
-                  <div className="flex justify-start space-x-4">
-                    <div className="w-[40px] h-[40px] rounded-full" >
+                <div key={toFollowUser.userId} className="flex justify-start rounded-lg border-[1px] border-slate-15">
+                  <div className="flex justify-between items-center">
+                    <div className="flex justify-start items-center">
+                      <Avatar userId={toFollowUser.userId} />
                       <Link href={`/profile/${toFollowUser.userId}`}>
-                        <Image
-                          className="bg-gray-300"
-                          src={avatar}
-                          width={0}
-                          height={0}
-                          alt="Picture of the author"
-                        />
+                        <div className="flex flex-col">
+                          <div className="text-black">{`${toFollowUser.fullName}`}</div>
+                          <div className="text-black">{`${toFollowUser.username}`}</div>
+                        </div>
                       </Link>
                     </div>
 
-                    <Link href={`/profile/${toFollowUser.userId}`}>
-                      <div className="flex flex-col">
-                        <div className="text-black">{`${toFollowUser.fullName}`}</div>
-                        <div className="text-black">{`${toFollowUser.username}`}</div>
-                      </div>
-                    </Link>
+                    <Spacer px="16px" />
 
                     <div className="flex justify-center">
                       <button className="w-[78px] h-[35px] rounded-full text-[#4426D9] border-[1px] border-[#4426D9] hover:bg-gradient-to-r hover:bg-[#ECE9FB]">Follow</button>
@@ -104,13 +99,15 @@ export default async function Feeds() {
         </div>
       </div>
 
-      <div className="flex justify-center border-b-[1px] border-slate-15 py-[32px] px-[16px]">
+      <Spacer py="16px" />
+
+      <div className="flex justify-center border-b-[1px] border-slate-15">
         <div className="flex flex-col space-y-8 justify-start w-[700px]">
           <h3 className="font-extrabold text-[24px] text-black">Recent</h3>
 
           <div className="grid grid-cols-1 gap-4 justify-center">
-            <Suspense fallback={<div>Loading recent user posts...</div>}>
-              <Posts posts={posts} />
+            <Suspense fallback={<PostsSkeleton posts={[0, 1, 2, 3, 4, 5, 6]} />} >
+              <Posts posts={posts as Post[]} />
             </Suspense>
           </div>
         </div>

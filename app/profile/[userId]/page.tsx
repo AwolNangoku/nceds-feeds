@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Posts, ProfileCard, Spacer } from "@/components";
 import ProfileCardSkeleton from "@/components/profile-card/profile-card-skeleton";
+import PostsSkeleton from "@/components/posts/posts-skeleton";
 
 export default async function Profile({ params }: { params: { userId: string } }) {
   const { userId } = params;
@@ -22,8 +23,6 @@ export default async function Profile({ params }: { params: { userId: string } }
         </div>
       </div>
 
-      <Spacer size="10px" />
-
       <div className="grid grid-cols-1 gap-4 justify-center">
         <div className="flex justify-center">
           <Suspense fallback={<ProfileCardSkeleton />}>
@@ -31,12 +30,10 @@ export default async function Profile({ params }: { params: { userId: string } }
           </Suspense>
         </div>
 
-        <Spacer size="20px" />
-
         <div className="flex justify-center">
           <div className="grid grid-cols-1 gap-4 w-[668px]">
             <h3 className="font-extrabold text-[24px] text-black p-[15px]">Recent</h3>
-            <Suspense fallback={<div>Loading recent user posts...</div>}>
+            <Suspense fallback={<PostsSkeleton posts={[0, 1, 2, 4]} />}>
               <Posts posts={userPosts.posts} />
             </Suspense>
           </div>
