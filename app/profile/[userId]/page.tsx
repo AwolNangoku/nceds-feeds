@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { ProfileCard } from "@/components";
+import { Posts, ProfileCard, Spacer } from "@/components";
 import ProfileCardSkeleton from "@/components/profile-card/profile-card-skeleton";
 
 export default async function Profile({ params }: { params: { userId: string } }) {
   const { userId } = params;
+  const userPosts = await fetch(`https://dummyjson.com/posts/user/${userId}`).then(res => res.json())
 
   return (
-    <div className="w-full h-screen bg-white">
+    <div className="grid grid-cols-1 gap-4 bg-white">
       <div className="flex justify-between h-[56px]">
         <div className="flex justify-center bg-white w-full border-b-[1px] border-slate-15 py-[12px] px-[8px]">
           <div className="flex justify-start h-[12px]">
@@ -21,10 +22,25 @@ export default async function Profile({ params }: { params: { userId: string } }
         </div>
       </div>
 
-      <div className="w-full h-full flex justify-center px-[16px] py-[32px]">
-        <Suspense fallback={<ProfileCardSkeleton />}>
-          <ProfileCard userId={userId} />
-        </Suspense>
+      <Spacer size="10px" />
+
+      <div className="grid grid-cols-1 gap-4 justify-center">
+        <div className="flex justify-center">
+          <Suspense fallback={<ProfileCardSkeleton />}>
+            <ProfileCard userId={userId} />
+          </Suspense>
+        </div>
+
+        <Spacer size="20px" />
+
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 gap-4 w-[668px]">
+            <h3 className="font-extrabold text-[24px] text-black p-[15px]">Recent</h3>
+            <Suspense fallback={<div>Loading recent user posts...</div>}>
+              <Posts posts={userPosts.posts} />
+            </Suspense>
+          </div>
+        </div>
       </div>
     </div>
   );

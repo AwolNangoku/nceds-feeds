@@ -1,7 +1,7 @@
 import Image from "next/image"
 import avatar from "@/public/avatar.png"
 import location from "@/public/location.png"
-import { Post } from "../posts"
+import { Post } from "@/components/posts"
 
 async function ProfileCard({ userId }: { userId: string }) {
   const user = await fetch(`https://dummyjson.com/users/${userId}`).then(res => res.json())
@@ -22,9 +22,9 @@ async function ProfileCard({ userId }: { userId: string }) {
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-2">
-              <div className="text-black font-extrabold text-[30px] leading-[30px]">{`${user.firstName} ${user.lastName}`}</div>
+              <div className="text-black font-extrabold text-[30px] leading-[30px]">{`${user?.firstName} ${user?.lastName}`}</div>
               <div className="flex justify-center space-x-2">
-                <div className="text-[#5C6970] text-[16px] font-medium leading-[18.75px]">{`@${user.username}`}</div>
+                <div className="text-[#5C6970] text-[16px] font-medium leading-[18.75px]">{`@${user?.username}`}</div>
                 <div className="flex justify-center">
                   <div className="w-[16px] h-[16px]">
                     <Image
@@ -34,14 +34,14 @@ async function ProfileCard({ userId }: { userId: string }) {
                       alt="Picture of the location"
                     />
                   </div>
-                  <div className="text-[#5C6970] text-[16px] font-medium leading-[18.75px]">{`${user.address.city}, ${user.address.country}`}</div>
+                  <div className="text-[#5C6970] text-[16px] font-medium leading-[18.75px]">{`${user?.address?.city}, ${user?.address?.country}`}</div>
                 </div>
               </div>
             </div>
 
             <div className="px-[12px] py-[6px] bg-[#E5F4FF] rounded-xl">
               <div className="font-extrabold font-base leading-4 text-[#0077CC]">
-                {user.company.title}
+                {user?.company?.title}
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@ async function ProfileCard({ userId }: { userId: string }) {
               <div className="flex font-extrabold text-black text-[24px] leading-[24px]">
                 {(() => {
                   const posts = userPosts.posts
-                  const totalLikes = posts.reduce((acc: number, post: Post) => acc + post.reactions.likes, 0)
+                  const totalLikes = (posts ?? []).reduce((acc: number, post: Post) => acc + post.reactions.likes, 0)
                   return totalLikes
                 })()}
               </div>
