@@ -11,7 +11,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        '#0077CC': '#0077CC',
+        '#5C6970': '#5C6970',
+        '#E5F4FF': '#E5F4FF',
+        '#FF0073': '#FF0073',
+        '#811AB8': '#811AB8',
         '#4426D9': '#4426D9',
+        '#ECE9FB': '#ECE9FB',
       },
       padding: {
         '8px': '8px',

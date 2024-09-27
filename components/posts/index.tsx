@@ -6,8 +6,11 @@ import dislike from "@/public/dislike.png";
 import eye from "@/public/eye.png";
 import UserInfo from "../user-info";
 import Link from "next/link";
+import UserInfoSkeleton from "../user-info/user-info-skeleton";
+import Spacer from "../spacer";
 
 export type Post = {
+  id: number
   userId: string;
   body: string;
   tags: string[];
@@ -19,9 +22,9 @@ export type Post = {
 }
 
 async function Posts({ posts }: { posts: Post[] }) {
-  return posts.map((post) => (
-    <div className="flex flex-col  border-[1px] border-slate-15 rounded-lg space-y-4">
-      <div className="flex justify-base space-x-4 border-b-[1px] border-slate-15">
+  return (posts ?? []).map((post) => (
+    <div key={post.id} className="grid grid-cols-1 gap-4 border-[1px] border-slate-15 rounded-lg">
+      <div className="flex justify-start border-b-[1px] border-slate-15">
         <div className="rounded-full" >
           <Link href={`/profile/${post.userId}`}>
             <Image
@@ -34,14 +37,16 @@ async function Posts({ posts }: { posts: Post[] }) {
           </Link>
         </div>
 
-        <div className="flex flex-col space-y-2">
-          <Suspense fallback={<div className="text-black">Loading user...</div>}>
+        <Spacer size="15px" />
+
+        <div className="flex flex-col">
+          <Suspense fallback={<UserInfoSkeleton />}>
             <UserInfo userId={post.userId} />
           </Suspense>
           <div className="text-black">{post.body}</div>
-          <div className="flex space-x-4 justfy-between">
+          <div className="flex justfy-between">
             {post.tags.map((tag) => (
-              <div className="text-[#4426D9] text-[12px] font-medium">#{tag}</div>
+              <div key={tag} className="text-[#4426D9] text-[12px] font-medium">#{tag}</div>
             ))}
           </div>
         </div>
