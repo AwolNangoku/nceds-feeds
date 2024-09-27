@@ -22,16 +22,12 @@ export default async function Profile({ params }: { params: { userId: string } }
         </div>
       </div>
 
-      <Spacer size="10px" />
-
       <div className="grid grid-cols-1 gap-4 justify-center">
         <div className="flex justify-center">
           <Suspense fallback={<ProfileCardSkeleton />}>
             <ProfileCard userId={userId} />
           </Suspense>
         </div>
-
-        <Spacer size="20px" />
 
         <div className="flex justify-center">
           <div className="grid grid-cols-1 gap-4 w-[668px]">

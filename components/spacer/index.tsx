@@ -1,6 +1,8 @@
 'user client';
 
-const Spacer = ({size}: {size: string}) => {
-  return <div className={`w-[${size}]`}></div>;
+const Spacer = ({py, px }: {py?: string, px?: string }) => {
+  return (
+    <div className={`py-[${py}] px-[${px}]`} />
+  )
 }
 export default Spacer;
